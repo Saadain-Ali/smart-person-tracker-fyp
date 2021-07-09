@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %} Trainer {% endblock %}
+
+
+{%block head%}
+{% include 'header.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/trainer.css') }}">
+
+{% endblock %}
+
+
+
+{% block navbar %}
+{%include 'nav.html'%}
+{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid p-3">
+    <div class="card p-3">
+        <div class="card-header bg-dark text-light" style="font-size: 3em;">
+            <img src="/static/images/logo.png" width="100px" align="center" class="float-right">
+            <span class="fs-1 mt-3 float-left">Training <span id = "trainName"></span></span>
+        </div>
+        <div class="card-body">
+             <div class="progress p-1 myprog" >
+            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated active" role="progressbar" id="pg"
+                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+            </div>
+            
+        </div>
+        <p id="note">Please Wait a while</p>
+                <!-- <button type="button" class="btn btn-primary" id="demo">Click on Me</button> -->
+        </div>
+       
+    </div>
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    var status = true;
+    $(document).ready(function () {
+        // $("#demo").on('click', function () {
+        function updateVal(val) {
+            // var progress = parseInt($("#pg").width() / $('#pg').parent().width() * 100);
+            // $("#pg").width((progress + val) + '%');
+            // $("#pg").html((progress + val) + '%');
+            if (val > 100) { val = 100; }
+            $("#pg").width(val + '%');
+            $("#pg").html(val + '%');
+        };
+
+
+
+        function gName() {
+            // var name = document.getElementById("name");
+            // console.log("aray bhai chal raha he");
+            if (status.toString() == true.toString()) {
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        data = JSON.parse(this.responseText);
+                        if (data.value >= 100 || data.value < 0) {
+                            $("#note").html('DONE');
+                            updateVal(100);
+                            status = false;
+                            xhr.abort();
+                        }
+                        else {
+                            // name.innerHTML = data.value[0];
+                            console.log(data);
+                            console.log(data.value);
+                            $("#trainName").html(data.name);
+                            // $("#rerender").load(data.name[0]);
+                            updateVal(data.value);
+                        }
+                        // $('#cam1_name').text(data.val[0]);
+                    }
+                }
+                if (status.toString() == true.toString()) {
+                    xhr.open("POST", "/trainer");
+                    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xhr.send(JSON.stringify({ status: status.toString() }));
+                }
+                else {
+                    xhr.open("POST", "/trainer");
+                    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xhr.send(JSON.stringify({ status: false.toString() }));
+                    xhr.abort();
+                }
+            }
+        };
+
+        function callme() {
+            console.log(status)
+            gName();
+            setTimeout(callme, 3000);
+
+        }
+
+        callme();
+
+    });
+</script>
+{% endblock %}

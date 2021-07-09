@@ -1,0 +1,427 @@
+<!-- for icons on cards -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <section id="minimal-statistics">
+      <main class="pb-3">
+      <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
+        <div id="timeline-chart_div"></div>
+            <br>
+          <div class="bg-light mb-5">
+              <div class="row p-1">
+                  <div class="col-xl-3 col-sm-6 col-12"> 
+                  <!-- <div class=" card shadow p-3 mb-2 card-counter primary rounded"> -->
+                  <div class=" card p-3 mb-2 card-counter primary rounded">
+                      <div class="card-content">
+                      <div class="card-body">
+                          <div class="media d-flex">
+                          <div class="align-self-center">
+                              <i class="icon-people primary font-large-2 float-left"></i>
+                          </div>
+                          <div class="media-body text-right">
+                              <!-- <h3 id="noOfStudents">0</h3> -->
+                              <span class="count-name">Students</span>
+                              <span id="noOfStudents" class="count-numbers">0</span>
+                          </div>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12">
+                  <div class=" card p-3 mb-2 card-counter danger rounded">
+                      <div class="card-content">
+                      <div class="card-body">
+                          <div class="media d-flex">
+                          <div class="align-self-center">
+                              <i class="icon-location-pin warning font-large-2 float-left"></i>
+                          </div>
+                          <div class="media-body text-right">
+                                <span class="count-name">Locations</span>
+                              <span id='noOfLocation' class="count-numbers">0</span>
+                          </div>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12">
+                    <div class=" card p-3 mb-2 card-counter success rounded">
+                        <div class="card-content">
+                      <div class="card-body">
+                          <div class="media d-flex">
+                          <div class="align-self-center">
+                              <i class="icon-graph success font-large-2 float-left"></i>
+                          </div>
+                          <div class="media-body text-right">
+                              <span class="count-name">Total Occurence</span>
+                              <span id='totalOccurence' class="count-numbers">0</span>
+                          </div>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6 col-12">
+                    <div class=" card p-3 mb-2 card-counter info rounded">
+                        <div class="card-content">
+                      <div class="card-body">
+                          <div class="media d-flex">
+                          <div class="align-self-center">
+                              <i class="icon-target success font-large-2 float-left"></i>
+                          </div>
+                          <div class="media-body text-right">
+                              <span class="count-name">Occurences Today</span>
+                              <span id='totalOccurence' class="count-numbers">0</span>
+                          </div>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="m-2 card shadow p-3 mb-2 bg-white rounded">
+            <div class="card-content">
+              <div class="card-body d-flex justify-content-center cleartfix">
+              <div class="media align-items-stretch">
+                  <div class="align-self-center">
+                  <h1 class="mr-2">Admin Dashboard</h1>
+                  </div>
+                  <div class="media-body">
+                  <h4></h4>
+                  <span></span>
+                  </div>
+              </div>
+              </div>
+          </div>
+          </div>
+
+          
+          <br>
+
+
+          <div class="bg-light">
+          <div class="row wrap">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 tgt" align="center">
+                <div class=" card shadow mb-2 bg-white rounded">
+                    <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                        Occurences
+                    </div>
+                    <div class="card-content">
+                        <div class="tgt card-body">
+                            <div id="occurence-bar-chart_div"  style="width: 800px; height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- most visited -->
+            <div class=" col-xs-12 col-sm-6 col-md-4 col-lg-6 tgt" align="center">
+              <div class=" card shadow mb-2 bg-white rounded">
+                <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                    Most Visited Locations
+                </div>  
+                <div class="card-content">
+                  <div class="tgt card-body">
+                      <div id="chart-bar-location-most-visit" style="width: 800px;  height: 250px;"></div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+
+            <!-- stepped chart -->
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 tgt" align="center">
+                  <div class=" card shadow  mb-2 bg-white rounded">
+                    <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                        Occurences
+                    </div>
+                      <div class="card-content">
+                      <div class="card-body">
+                          <div id="location-stepped-chart_div" style="height:250px; width:800px"></div>
+                      </div>
+                      </div>
+                  </div>
+            </div>
+
+            <!-- area steps -->
+            <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 tgt" align="center">
+                      <div class=" card shadow  mb-2 bg-white rounded">
+                        <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                            Occurences
+                        </div>
+                          <div class="card-content">
+                          <div class="card-body">
+                              <div id="chart_area3" style="height:250px; width:800px"></div>
+                          </div>
+                          </div>
+                      </div>
+            </div> -->
+
+            <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 tgt" align="center">
+                <div class=" card shadow  mb-2 bg-white rounded">
+                    <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                        Occurences
+                    </div>
+                    <div class="card-content">
+                    <div class="card-body">
+                        <div id="chart_area4" style="height:250px; width:800px"></div>
+                    </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 tgt" align="center">
+                <div class=" card shadow  mb-2 bg-white rounded">
+                    <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                        Occurences
+                    </div>
+                    <div class="card-content">
+                    <div class="card-body " class="justify-content-center">
+                        <div id="chart-scatter-activity " style="height:250px; width:800px"></div>
+                    </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 tgt" align="center">
+                <div class=" card shadow  mb-2 bg-white rounded">
+                    <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                        Occurences
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                        <div id="chart-area1" class="justify-content-center" style="height:250px; width:800px" >
+                        </div>
+                    </div> 
+                    </div>
+                </div>    
+            </div> -->
+
+            <!-- calendar -->
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 tgt" align="center">
+                <div class=" card shadow  mb-2 bg-white rounded">
+                    <div class="card-header my-bg-blue-dark shadow bg-secondary text-white">
+                        Occurences
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart-calendar" class="justify-content-center" style="height:250px; width:800px" >
+                                <!-- charts area -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+          </div>
+          </div>
+  
+      </div>
+      </main>
+      </section>
+      
+
+  
+  
+      <script>
+      $(document).ready(function () {
+        google.charts.load("current", { packages: ["corechart",'annotationchart','sankey'] });
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Employee Name', 'Salary'],
+              ['Mike', { v: 22500, f: '22,500' }], // Format as "22,500".
+              ['Bob', 35000],
+              ['Alice', 44000],
+              ['Frank', 27000],
+              ['Floyd', 92000],
+              ['Fritz', 18500]
+            ],
+              false); // 'false' means that the first row contains labels, not data.
+  
+            var options = {
+              title: '{{title}}',
+              is3D: true,
+              slices: {
+                2: { offset: 0.2 },
+                3: { offset: 0.3 }
+              }
+            };
+  
+            google.visualization.drawChart({
+  
+              'options': options,
+              'dataTable': data,
+              'chartType': "PieChart",
+              'containerId': "chart_area1",
+              // 'containerClass': "chart_area",
+            });
+  
+            google.visualization.drawChart({
+              'options': options,
+              'dataTable': data,
+              'chartType': "PieChart",
+              'containerId': "chart_area2",
+              // 'containerClass': "chart_area",
+              });
+  
+              google.visualization.drawChart({
+              'options': options,
+              'dataTable': data,
+              'chartType': "PieChart",
+              'containerId': "chart_area3",
+              // 'containerClass': "chart_area",
+              });
+  
+              google.visualization.drawChart({
+  
+              'options': options,
+              'dataTable': data,
+              'chartType': "PieChart",
+              'containerId': "chart_area4",
+              // 'containerClass': "chart_area",
+              });
+  
+  
+              var data1 = google.visualization.arrayToDataTable([
+              ['From' ,'To' , 'Weight'],
+              [ 'A', 'X', 5 ],
+              [ 'A', 'Y', 7 ],
+              [ 'A', 'Z', 6 ],
+              [ 'B', 'X', 2 ],
+              [ 'B', 'Y', 9 ],
+              [ 'B', 'Z', 4 ]
+            ],
+              false); //
+  
+              google.visualization.drawChart({
+  
+              'options': {
+                width: "700",
+                height: "300",
+                animation: {
+                startup: true,
+                duration: 800,
+                easing: "inAndOut"
+            },
+              },
+              'dataTable': data,
+              'chartType': "LineChart",
+              'containerId': "lineChart",
+              // 'containerClass': "chart_area",
+              });
+  
+              // Instantiates and draws our chart, passing in some options.
+              var chart = new google.visualization.Sankey(document.getElementById('sankeyChart'));
+              chart.draw(data1, {width: 600});
+  
+  
+  
+              // anotation
+  
+              var data = new google.visualization.DataTable();
+                  data.addColumn('date', 'Date');
+                  data.addColumn('number', 'Kepler-22b mission');
+                  data.addColumn('string', 'Kepler title');
+                  data.addColumn('string', 'Kepler text');
+                  data.addColumn('number', 'Gliese 163 mission');
+                  data.addColumn('string', 'Gliese title');
+                  data.addColumn('string', 'Gliese text');
+                  data.addRows([
+                  [new Date(2314, 2, 15), 12400, undefined, undefined,
+                                          10645, undefined, undefined],
+                  [new Date(2314, 2, 16), 24045, 'Lalibertines', 'First encounter',
+                                          12374, undefined, undefined],
+                  [new Date(2314, 2, 17), 35022, 'Lalibertines', 'They are very tall',
+                                          15766, 'Gallantors', 'First Encounter'],
+                  [new Date(2314, 2, 18), 12284, 'Lalibertines', 'Attack on our crew!',
+                                          34334, 'Gallantors', 'Statement of shared principles'],
+                  [new Date(2314, 2, 19), 8476, 'Lalibertines', 'Heavy casualties',
+                                          66467, 'Gallantors', 'Mysteries revealed'],
+                  [new Date(2314, 2, 20), 0, 'Lalibertines', 'All crew lost',
+                                          79463, 'Gallantors', 'Omniscience achieved']
+                  ]);
+  
+                  var chart = new google.visualization.AnnotationChart(document.getElementById('annotChart'));
+  
+                  var options = {
+                    displayAnnotations: true,
+                    width: "700",
+                    height: "300",
+                    animation: {
+                    startup: true,
+                    duration: 800,
+                    easing: "inAndOut"
+                    },
+                  };
+  
+                  chart.draw(data, options);
+            console.log('done')
+          }
+
+          
+    // Chart2
+    (function() {
+        "use strict";
+  
+        function drawChart() {
+          var target = document.getElementById("chart-line");
+          var data;
+          var options = {
+            title: "My Line Chart",
+            width: "400",
+            height: "300",
+            animation: {
+              startup: true,
+              duration: 800,
+              easing: "inAndOut"
+            },
+            hAxis: { title: "Year" },
+            vAxis: { title: "Sales" },
+            curveType: "function",
+            pointSize: 6
+            // pointShape: 'square'
+          };
+          var chart = new google.visualization.LineChart(target);
+          // var chart = new google.visualization.ColumnChart(target);
+          data = new google.visualization.arrayToDataTable([
+            // ["Year", "Bob", "Jane", { role: "certainty" }, "Carry"],
+            // ["2017/05", 12, 38, null, 80],
+            // ["2017/06", 42, 18, null, 10],
+            // ["2017/07", 11, 58, 'Camp A', 130],
+            // ["2017/08", 111, 158, null, 70]
+  
+            [
+              "Year",
+              "@アイテムA",
+              { role: "annotation" },
+              { role: "certainty" },
+              "@アイテムB",
+              { role: "certainty" }
+            ],
+            ["2014", 52, "キャンペーン A", true, 89, true],
+            ["2015", 38, null, true, 78, true],
+            ["2016", 122, "キャンペーン B", true, 88, true],
+            ["2017", 62, null, true, 91, true],
+            ["2018", 142, "想定売上げ", false, 101, false]
+          ]);
+          chart.draw(data, options);
+        }
+  
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+      })();
+
+
+
+
+      });
+      </script>

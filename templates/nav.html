@@ -1,0 +1,61 @@
+
+<!-- for navbar -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+
+
+
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+    <a class="navbar-brand navbar-logo" href="#"><img src="{{ url_for('static', filename='images/logo.png') }}" height="50px" width="50px" >Smart Person Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+            <li class="nav-item" id="Home">
+                <a class="nav-link" href="{{url_for('Index')}}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            </li>
+            <li class="nav-item " id="Stats">
+                <a class="nav-link" href="{{url_for('Stats')}}"><i class="far fa-address-book"></i>Stats</a>
+            </li>
+            <li class="nav-item" id="Surv">
+                <a class="nav-link" href="{{url_for('surv')}}"><i class="far fa-clone"></i>Survailance</a>
+            </li>
+            <li class="nav-item" id="Surv_ip">
+                <a class="nav-link" href="{{url_for('surv_ip')}}"><i class="far fa-clone"></i>Survailance-IP</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="{{url_for('trainer')}}"><i class="far fa-calendar-alt"></i>Calendar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
+            </li> -->
+        </ul>
+    </div>
+</nav>
+
+
+<script>
+    $(document).ready(function() {
+        var title = $(document).attr('title');
+        console.log(title)
+        if (title === 'Home') {
+            var nav = $(".navbar-nav").find("#Home")
+            nav.addClass('active');
+        } else if (title === 'Stats') {
+            var nav = $(".navbar-nav").find("#Stats")
+            nav.addClass('active');
+        }
+        else if (title === 'Surv') {
+            var nav = $(".navbar-nav").find("#Surv")
+            nav.addClass('active');
+        }
+        else{
+            var nav = $(".navbar-nav").find("#Surv-ip")
+            nav.addClass('active');
+        }
+    });
+</script>

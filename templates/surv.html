@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+{% block title %} Home
+{%endblock %}
+
+{% block body %}
+
+<div class="container-fluid p-3">
+    <!-- <span id="checkit"></span> -->
+    <div class="row">
+        <div class="box col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card shadow p-3 mb-2 bg-white rounded">
+                <div id="cam1_name" class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <h3 align="center">Cam 1</h3>
+                <img id="bg" src="{{ url_for('webcam', location = 'Corridor1') }}" style="width: 100%" />
+                <div class="container p-3">
+                    <div class='element' id='div_1'>
+                        <input type='text' placeholder='Student' id='txt_1'>&nbsp;<span class='add'>Last
+                            Occurence</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="box col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card shadow p-3 mb-2 bg-white rounded">
+                <div id="cam2_name" class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <h3 align="center">Cam 2</h3>
+                <img id="bg" class="center" src="{{ url_for('video_viewer') }}" style="width: 100%" />
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function gName() {
+        var name = document.getElementById("name");
+        // console.log("aray bhai chal raha he");
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                data = JSON.parse(this.responseText);
+                name.innerHTML = data.name[0];
+                console.log(data[0]);
+                // $("#rerender").load(data.name[0]);
+                $("#cam1_name").text(data.name[0][0]);
+                addElement();
+            }
+        };
+        xhr.open("POST", "/getName");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify({ status: "true" }));
+    }
+
+    function callme() {
+        // $('#checkit').append("callme loaded<br />");
+        gName();
+        setTimeout(callme, 5000);
+    }
+    callme();
+
+    // Add new element
+    function addElement() {
+        // Finding total number of elements added
+        var total_element = $(".element").length;
+
+        // last <div> with element class id
+        var lastid = $(".element:last").attr("id");
+        var split_id = lastid.split("_");
+        var nextindex = Number(split_id[1]) + 1;
+
+        var max = 5;
+        // Check total number elements
+        if (total_element < max) {
+            // Adding new div container after last occurance of element class
+            $(".element:last").after(
+                "<div class='element' id='div_" + nextindex + "'></div>"
+            );
+
+            // Adding element to <div>
+            $("#div_" + nextindex).append(
+                "<input type='text' placeholder='Enter your skill' id='txt_" +
+                nextindex +
+                "'>&nbsp;<span id='remove_" +
+                nextindex +
+                "' class='remove'>X</span>"
+            );
+        }
+    };
+
+    // Remove element
+    $(".container").on("click", ".remove", function () {
+        var id = this.id;
+        var split_id = id.split("_");
+        var deleteindex = split_id[1];
+
+        // Remove <div> with id
+        $("#div_" + deleteindex).remove();
+    });
+</script>
+
+<script src="static\js\script.js"></script>
+
+{% endblock %}
