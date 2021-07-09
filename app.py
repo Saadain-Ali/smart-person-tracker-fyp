@@ -94,8 +94,9 @@ locations = {
     "GateOut" : 'http://192.168.0.21:8080/video'
     }
 
+activeEncodings = "encodings\encodings_fyp-2_final-hog.pickle";
 
-data = pickle.loads(open("encodings\encodings_fyp-2_final-hog.pickle", "rb").read())
+data = pickle.loads(open(activeEncodings, "rb").read())
 
 class Student(db.Model):
     sid = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
@@ -269,7 +270,7 @@ def trainer():
     global counter
     global f
     if f is None:
-        f = face_encoder('encodings\encodings_fyp-2_final-hog.pickle','dataset','hog')
+        f = face_encoder(activeEncodings,'dataset','hog')
         f.start()
     if request.method == 'POST':
         json = request.get_json()
@@ -406,7 +407,7 @@ def webcam_stream():
     
     # if video_camera == None:
     # video = cv2.VideoCapture(0)
-    recordingThread = RecordingThread("Video Recording Thread")
+    recordingThread = RecordingThread("Video Recording Thread", activeEncodings)
     recordingThread.start()
         # video_camera = WebCamera()
         

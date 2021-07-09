@@ -12,7 +12,7 @@ import os
 
 
 class RecordingThread (threading.Thread):
-    def __init__(self, name):
+    def __init__(self, name , encodingsFile):
         threading.Thread.__init__(self)
         
         
@@ -26,7 +26,7 @@ class RecordingThread (threading.Thread):
         print("[INFO] loading encodings...")
 
         # Loading Encodings from pickel file
-        self.data = pickle.loads(open("encodings_All.pickle", "rb").read())
+        self.data = pickle.loads(open(encodingsFile , "rb").read())
         self.encodeListKnown = self.data['encodings']
 
         # testing pickel file data not necessary
