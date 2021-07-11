@@ -54,7 +54,7 @@ class RecordingThread (threading.Thread):
                     self.count = self.count + 1
                 # self.out.write(frame)
                     # self.out.write(roi_color)
-            if self.count == 300 :
+            if self.count == 600 :
                 self.stop()
                 break
         self.cap.release()

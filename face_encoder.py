@@ -14,7 +14,7 @@ class face_encoder(threading.Thread):
         self._running = True
         self.args = {
             # 'encodings' : encodings,
-            'encodings' : 'encodings\encodings_fyp-2_final-hog.pickle',
+            'encodings' : encodings,
             'dataset'   : dataset,
             'detection-method' : detection_method
         }

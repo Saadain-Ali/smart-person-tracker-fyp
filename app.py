@@ -71,7 +71,7 @@ current_name = ""
 count = 0
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
-database_file = "sqlite:///{}".format(os.path.join(project_dir, "student.db"))
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "database/student.db"))
 
 app = Flask(__name__)
 app.secret_key = "Secret Key"
